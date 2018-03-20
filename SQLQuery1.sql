@@ -1,0 +1,70 @@
+CREATE TABLE STUDENT
+(STUDENT_ID 	INTEGER PRIMARY KEY,
+[LAST NAME]          VARCHAR(20) NOT NULL,
+NAME 		VARCHAR(20) NOT NULL,
+SURNAME 		VARCHAR(20),
+BIRTHDAY 		DATETIME,
+ADDRESS 		VARCHAR(60),
+UNIV_ID 		INTEGER)
+
+
+
+CREATE TABLE LECTURER
+(Lecturer_Id integer NOT NULL,
+[LAST NAME]  VARCHAR(20),
+NAME 		 VARCHAR(20),
+SURNAME 	 VARCHAR(20),
+BIRTHDAY 	 DATETIME,
+ADDRESS 	 VARCHAR(60),
+UNIV_ID 	 integer NOT NULL)
+
+CREATE TABLE SUBJECT
+(Subj_Id integer NOT NULL,
+Subj_Name VARCHAR(20),
+Hour TIME,
+Semester integer NOT NULL)
+
+CREATE TABLE UNIVERSITY
+(Univ_Id VARCHAR(20),
+Univ_Name VARCHAR(20),
+Rating integer NOT NULL,
+City VARCHAR(20))
+
+create TABLE EXAM_MARKS
+(Exam_Id integer NOT NULL,
+Student_Id integer NOT NULL,
+Subj_Id integer NOT NULL,
+Mark INTEGER CHECK (MARK>0 AND MARK<=5),
+Exam_Date DATETIME2,
+CONSTRAINT 	EX_PR_KEY 
+				PRIMARY KEY (EXAM_ID, STUDENT_ID))
+
+				drop table EXAM_MARKS
+
+CREATE TABLE SUBJ_LECT
+(Lecturer_Id integer NOT NULL,
+Subj_Id integer NOT NULL)
+
+CREATE INDEX find_mark
+	ON EXAM_MARKS (student_id,exam_date,mark)
+
+  
+CREATE TABLE EXAM_MARKS
+(EXAM_ID 	INTEGER NOT NULL,
+STUDENT_ID 	INTEGER NOT NULL ,
+SUBJ_ID 		INTEGER NOT NULL,
+MARK 		CHAR (1),
+EXAM_DATE 	DATETIME NOT NULL unique,
+CONSTRAINT 		EX_PR_KEY
+primary key (student_id, exam_id)) 
+
+CREATE TABLE SUBJECT
+(Subj_Id integer NOT NULL,
+Subj_Name VARCHAR(20),
+Hourr integer NOT NULL default '36',
+Semester integer check (semester>0 AND semester<=12) NOT NULL 
+primary key (subj_id)) 
+
+ALTER TABLE exam_marks
+ADD CONSTRAINT chec_id
+CHECK (exam_id>subj_id AND subj_id>student_id) 
